@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDataSourceStorage">
+    <option name="dataSources">
+      <list>
+        <State>
+          <option name="id" value="6202e7c5-bbee-4d49-9d21-2f893931fd3c" />
+          <option name="name" value="spring_db (2)" />
+          <option name="urls">
+            <array>
+              <option value="file://$PROJECT_DIR$/spring_db (2).sql" />
+            </array>
+          </option>
+        </State>
+      </list>
+    </option>
+  </component>
+</project>
