@@ -3,27 +3,28 @@ package com.websystique.springmvc.dao;
 import com.websystique.springmvc.model.Office;
 import com.websystique.springmvc.model.User;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository("officeDao")
 public class OfficeDAOImpl extends AbstractDao<Integer, Office> implements OfficeDAO {
-    @Override
-    public Office findById(int id) {
-        return null;
-    }
+    static final Logger logger = LoggerFactory.getLogger(OfficeDAOImpl.class);
 
     @Override
-    public Office findBySSO(String sso) {
-        return null;
+    public Office findById(int id) {
+        Office office = getByKey(id);
+        return office;
     }
 
     @Override
     public void save(Office office) {
-
+        persist(office);
     }
 
     @Override
@@ -39,13 +40,6 @@ public class OfficeDAOImpl extends AbstractDao<Integer, Office> implements Offic
         Criteria criteria = createEntityCriteria().addOrder(Order.asc("title"));
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
         List<Office> offices = (List<Office>) criteria.list();
-
-        // No need to fetch userProfiles since we are not showing them on list page. Let them lazy load.
-        // Uncomment below lines for eagerly fetching of userProfiles if you want.
-		/*
-		for(User user : users){
-			Hibernate.initialize(user.getUserProfiles());
-		}*/
         return offices;
     }
 }

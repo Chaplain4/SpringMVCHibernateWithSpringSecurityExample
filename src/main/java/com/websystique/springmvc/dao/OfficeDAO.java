@@ -8,8 +8,6 @@ public interface OfficeDAO {
 
     Office findById(int id);
 
-    Office findBySSO(String sso);
-
     void save(Office office);
 
     void deleteById(int id);

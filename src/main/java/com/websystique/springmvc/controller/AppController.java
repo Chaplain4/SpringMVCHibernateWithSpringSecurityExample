@@ -1,5 +1,6 @@
 package com.websystique.springmvc.controller;
 
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -7,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.websystique.springmvc.model.Office;
+import com.websystique.springmvc.service.OfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -18,17 +21,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import com.websystique.springmvc.model.User;
 import com.websystique.springmvc.model.UserProfile;
 import com.websystique.springmvc.service.UserProfileService;
 import com.websystique.springmvc.service.UserService;
-
+import org.springframework.web.context.request.RequestAttributes;
 
 
 @Controller
@@ -38,6 +37,9 @@ public class AppController {
 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	OfficeService officeService;
 	
 	@Autowired
 	UserProfileService userProfileService;
@@ -119,8 +121,27 @@ public class AppController {
 		User user = userService.findBySSO(ssoId);
 		model.addAttribute("user", user);
 		model.addAttribute("edit", true);
+		model.addAttribute("offices", officeService.findAllOffices());
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "registration";
+	}
+
+	@RequestMapping(value = { "/assign-user-{ssoId}" }, method = RequestMethod.GET)
+	public String assignUser(@PathVariable String ssoId, ModelMap model) {
+		User user = userService.findBySSO(ssoId);
+		model.addAttribute("user", user);
+		model.addAttribute("offices", officeService.findAllOffices());
+		return "assignment";
+	}
+
+	@RequestMapping(value = { "/assign-user-{ssoId}" }, method = RequestMethod.POST)
+	public String assignUser(@PathVariable String ssoId, ModelMap model, @RequestParam Integer office) {
+		User user = userService.findBySSO(ssoId);
+		user.setOffice(officeService.findById(office));
+		userService.updateUserOffice(user);
+		model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " updated successfully");
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "registrationsuccess";
 	}
 	
 	/**
@@ -130,7 +151,6 @@ public class AppController {
 	@RequestMapping(value = { "/edit-user-{ssoId}" }, method = RequestMethod.POST)
 	public String updateUser(@Valid User user, BindingResult result,
 			ModelMap model, @PathVariable String ssoId) {
-
 		if (result.hasErrors()) {
 			return "registration";
 		}
@@ -167,6 +187,14 @@ public class AppController {
 	@ModelAttribute("roles")
 	public List<UserProfile> initializeProfiles() {
 		return userProfileService.findAll();
+	}
+
+	/**
+	 * This method will provide Office list to views
+	 */
+	@ModelAttribute("office")
+	public List<Office> initializeOffices() {
+		return officeService.findAllOffices();
 	}
 	
 	/**

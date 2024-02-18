@@ -1,15 +1,20 @@
 com\websystique\springmvc\configuration\AppConfig.class
+com\websystique\springmvc\service\OfficeServiceImpl.class
 com\websystique\springmvc\configuration\AppInitializer.class
 com\websystique\springmvc\converter\RoleToUserProfileConverter.class
 com\websystique\springmvc\security\SecurityWebApplicationInitializer.class
+com\websystique\springmvc\controller\OfficeController.class
 com\websystique\springmvc\security\SecurityConfiguration.class
 com\websystique\springmvc\service\UserProfileService.class
 com\websystique\springmvc\dao\UserDaoImpl.class
 com\websystique\springmvc\controller\AppController.class
 com\websystique\springmvc\security\CustomUserDetailsService.class
+com\websystique\springmvc\dao\OfficeDAO.class
 com\websystique\springmvc\model\UserProfile.class
+com\websystique\springmvc\service\OfficeService.class
 com\websystique\springmvc\dao\AbstractDao.class
 com\websystique\springmvc\service\UserServiceImpl.class
+com\websystique\springmvc\model\Office.class
 com\websystique\springmvc\configuration\HibernateConfiguration.class
 com\websystique\springmvc\dao\UserProfileDao.class
 com\websystique\springmvc\service\UserProfileServiceImpl.class
@@ -20,3 +25,4 @@ com\websystique\springmvc\model\PersistentLogin.class
 com\websystique\springmvc\dao\HibernateTokenRepositoryImpl.class
 com\websystique\springmvc\model\User.class
 com\websystique\springmvc\dao\UserProfileDaoImpl.class
+com\websystique\springmvc\dao\OfficeDAOImpl.class

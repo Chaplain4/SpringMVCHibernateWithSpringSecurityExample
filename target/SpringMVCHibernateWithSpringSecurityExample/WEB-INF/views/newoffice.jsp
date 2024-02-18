@@ -45,41 +45,41 @@
         </div>
 
 
-<%--        <div class="row">--%>
-<%--            <div class="form-group col-md-12">--%>
-<%--                <label class="col-md-3 control-lable" for="postalCode">PostalCode</label>--%>
-<%--                <div class="col-md-7">--%>
-<%--                    <form:input type="number" path="PostalCode" id="postalCode" class="form-control input-sm" />--%>
-<%--                    <div class="has-error">--%>
-<%--                        <form:errors path="postal_code" class="help-inline"/>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="postalCode">Postal Code</label>
+                <div class="col-md-7">
+                    <form:input type="number" path="postalCode" id="postalCode" class="form-control input-sm" />
+                    <div class="has-error">
+                        <form:errors path="postalCode" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<%--        <div class="row">--%>
-<%--            <div class="form-group col-md-12">--%>
-<%--                <label class="col-md-3 control-lable" for="phone_1">Phone1</label>--%>
-<%--                <div class="col-md-7">--%>
-<%--                    <form:input type="text" path="Phone1" id="phone_1" class="form-control input-sm" />--%>
-<%--                    <div class="has-error">--%>
-<%--                        <form:errors path="phone_1" class="help-inline"/>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="phone1">Phone 1</label>
+                <div class="col-md-7">
+                    <form:input type="text" path="phone1" id="phone1" class="form-control input-sm" />
+                    <div class="has-error">
+                        <form:errors path="phone1" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<%--        <div class="row">--%>
-<%--            <div class="form-group col-md-12">--%>
-<%--                <label class="col-md-3 control-lable" for="phone_2">Phone2</label>--%>
-<%--                <div class="col-md-7">--%>
-<%--                    <form:input type="text" path="Phone2" id="phone_2" class="form-control input-sm" />--%>
-<%--                    <div class="has-error">--%>
-<%--                        <form:errors path="phone_1" class="help-inline"/>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="phone2">Phone 2</label>
+                <div class="col-md-7">
+                    <form:input type="text" path="phone2" id="phone2" class="form-control input-sm" />
+                    <div class="has-error">
+                        <form:errors path="phone2" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="row">
             <div class="form-actions floatRight">

@@ -21,4 +21,6 @@ public interface UserService {
 	
 	boolean isUserSSOUnique(Integer id, String sso);
 
+	void updateUserOffice(User user);
+
 }

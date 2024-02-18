@@ -21,6 +21,9 @@
 		<span class="well floatRight">
 			Go to <a href="<c:url value='/list' />">Users List</a>
 		</span>
+		<span class="well floatRight">
+			Go to <a href="<c:url value='/offices/list' />">Offices List</a>
+		</span>
 	</div>
 </body>
 

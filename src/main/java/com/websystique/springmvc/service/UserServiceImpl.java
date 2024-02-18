@@ -51,9 +51,16 @@ public class UserServiceImpl implements UserService{
 			entity.setLastName(user.getLastName());
 			entity.setEmail(user.getEmail());
 			entity.setUserProfiles(user.getUserProfiles());
+			//entity.setOffice(user.getOffice());
 		}
 	}
 
+	public void updateUserOffice(User user) {
+		User entity = dao.findById(user.getId());
+		if(entity!=null){
+			entity.setOffice(user.getOffice());
+		}
+	}
 	
 	public void deleteUserBySSO(String sso) {
 		dao.deleteBySSO(sso);
