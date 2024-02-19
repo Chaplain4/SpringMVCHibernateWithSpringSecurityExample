@@ -39,14 +39,4 @@ public class Office  {
     private Timestamp updatedTS;
     @Column(name ="created_ts")
     private Timestamp createdTS;
-//    @OneToMany(mappedBy = "office")
-//    private Collection<User> user;
-
-//    public Collection<User> getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(Collection<User> user) {
-//        this.user = user;
-//    }
 }

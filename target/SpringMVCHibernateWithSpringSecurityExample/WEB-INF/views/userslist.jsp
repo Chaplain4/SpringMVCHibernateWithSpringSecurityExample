@@ -47,7 +47,7 @@
 							<td><a href="<c:url value='/edit-user-${user.ssoId}' />" class="btn btn-success custom-width">edit</a></td>
 				        </sec:authorize>
 						<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-							<td><a href="<c:url value='/assign-user-${user.ssoId}' />" class="btn btn-success custom-width">assign to office</a></td>
+							<td><a href="<c:url value='/assign-user-${user.ssoId}' />" class="btn btn-success custom-width">assign</a></td>
 						</sec:authorize>
 				        <sec:authorize access="hasRole('ADMIN')">
 							<td><a href="<c:url value='/delete-user-${user.ssoId}' />" class="btn btn-danger custom-width">delete</a></td>
