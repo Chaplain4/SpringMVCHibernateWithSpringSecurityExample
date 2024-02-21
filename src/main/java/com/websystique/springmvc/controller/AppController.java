@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.websystique.springmvc.model.Office;
+import com.websystique.springmvc.service.MailService;
 import com.websystique.springmvc.service.OfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -43,7 +44,9 @@ public class AppController {
 	
 	@Autowired
 	UserProfileService userProfileService;
-	
+
+	@Autowired
+	MailService mailService;
 	@Autowired
 	MessageSource messageSource;
 
@@ -85,7 +88,7 @@ public class AppController {
 	@RequestMapping(value = { "/newuser" }, method = RequestMethod.POST)
 	public String saveUser(@Valid User user, BindingResult result,
 			ModelMap model) {
-
+		MailService.send(user.getEmail(),"Welcome " + user.getFirstName(), "You are now inside crazy users app");
 		if (result.hasErrors()) {
 			return "registration";
 		}

@@ -3,10 +3,12 @@ package com.websystique.springmvc.dao;
 import java.io.Serializable;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractDao<PK extends Serializable, T> {
@@ -44,6 +46,14 @@ public abstract class AbstractDao<PK extends Serializable, T> {
 	
 	protected Criteria createEntityCriteria(){
 		return getSession().createCriteria(persistentClass);
+	}
+
+	public List<T> findAllLike(String field, String start) {
+		Criteria criteria = createEntityCriteria();
+		criteria.add(Restrictions.like(field,start+"%"));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+		List<T> list = (List<T>) criteria.list();
+		return list;
 	}
 
 }

@@ -1,5 +1,9 @@
 package com.websystique.springmvc.configuration;
 
+import com.websystique.springmvc.dao.HibernateTokenRepositoryImpl;
+import com.websystique.springmvc.model.Company;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +26,11 @@ import com.websystique.springmvc.converter.RoleToUserProfileConverter;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.websystique.springmvc")
 public class AppConfig extends WebMvcConfigurerAdapter{
+
+	static final Logger logger = LoggerFactory.getLogger(HibernateTokenRepositoryImpl.class);
+
+	@Autowired
+	private Company company;
 	
 	
 	@Autowired

@@ -42,4 +42,13 @@ public class OfficeDAOImpl extends AbstractDao<Integer, Office> implements Offic
         List<Office> offices = (List<Office>) criteria.list();
         return offices;
     }
+
+    public List<Office> findAllOfficesByAddress(String address) {
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.like("address",address+"%"));
+
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+        List<Office> offices = (List<Office>) criteria.list();
+        return offices;
+    }
 }

@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3307
--- Время создания: Фев 18 2024 г., 18:00
--- Версия сервера: 5.7.39-log
--- Версия PHP: 7.2.34
+-- Время создания: Фев 21 2024 г., 21:47
+-- Версия сервера: 5.6.41
+-- Версия PHP: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -43,7 +44,7 @@ CREATE TABLE `app_user` (
 
 INSERT INTO `app_user` (`id`, `sso_id`, `password`, `first_name`, `last_name`, `email`, `office_id`) VALUES
 (3, 'User', '$2a$10$A3LIqSPKkVviJ1RmOsCrFeHNaY6/JjI9K2us6HZuoxBiat77gAV1.', 'Peter', 'Petrov', 'Peter@gmail.com', 3),
-(4, 'DBA', '$2a$10$tP6ba.KC3Dfn9R.R1qp2Lu9JGKaQOVtVfXAt/uEZTA98d2aiEHfPu', 'Mike', 'Petrov', 'xx@gmail.com', 1),
+(4, 'DBA', '$2a$10$tP6ba.KC3Dfn9R.R1qp2Lu9JGKaQOVtVfXAt/uEZTA98d2aiEHfPu', 'Mike', 'Petrov', 'xx@gmail.com', 3),
 (5, 'Admin', '$2a$10$nB8AGG78Ny.dWUe4OQXkv.sA6nrLKzjfQDZ7/Jm1xiDj.vZZ/bROi', 'Peter', 'Petrov', 'asd@asd', 3),
 (6, 'MP', '$2a$10$R.mzqibRkIzTIvT2zbNvIu7IDOpy31q8hVKnHoS/RBnhwHbE.kzJ2', 'Mike', 'Petrov', 'Chaplain04@gmail.com', 3);
 
@@ -67,6 +68,77 @@ INSERT INTO `app_user_user_profile` (`user_id`, `user_profile_id`) VALUES
 (5, 2),
 (6, 2),
 (4, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `authors`
+--
+
+CREATE TABLE `authors` (
+  `id` int(11) NOT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `authors`
+--
+
+INSERT INTO `authors` (`id`, `last_name`, `name`) VALUES
+(1, 'Tolkien', 'John R.R.'),
+(2, 'Lem', 'Stanislav'),
+(3, 'Pratchett', 'Terry'),
+(4, 'Gaiman', 'Neil');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `author_book`
+--
+
+CREATE TABLE `author_book` (
+  `author_id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `author_book`
+--
+
+INSERT INTO `author_book` (`author_id`, `book_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 4),
+(2, 5),
+(3, 6),
+(4, 6);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `books`
+--
+
+CREATE TABLE `books` (
+  `id` int(11) NOT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `pages` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `books`
+--
+
+INSERT INTO `books` (`id`, `category`, `name`, `pages`) VALUES
+(1, 'Fantasy', 'Fellowship of the Ring', 345),
+(2, 'Fantasy', 'Two Towers', 319),
+(3, 'Fantasy', 'Return of the King', 400),
+(4, 'Sci-Fi', 'Solaris', 254),
+(5, 'Sci-Fi', 'Invincible', 341),
+(6, 'Fantasy', 'Good Omens', 547);
 
 -- --------------------------------------------------------
 
@@ -176,7 +248,9 @@ CREATE TABLE `persistent_logins` (
 --
 
 INSERT INTO `persistent_logins` (`username`, `series`, `token`, `last_used`) VALUES
-('User', 'jn/fWkX2egZSEkwcFQp0PA==', 'naIPLWoCGZjcXHPHWoQDkA==', '2024-02-18 14:59:06');
+('User', 'jn/fWkX2egZSEkwcFQp0PA==', 'naIPLWoCGZjcXHPHWoQDkA==', '2024-02-18 14:59:06'),
+('User', 'QRbWO02OzuRGT5+XaZNGlQ==', 'd5PBv/QmifMQ4KeI5uDbMA==', '2024-02-19 15:57:25'),
+('User', 'UDyTYLfST+E0/XID8o4dlg==', 'bobgzOyuyz6bscKRnBICfw==', '2024-02-21 17:16:12');
 
 -- --------------------------------------------------------
 
@@ -283,6 +357,25 @@ ALTER TABLE `app_user_user_profile`
   ADD KEY `FK_USER_PROFILE` (`user_profile_id`);
 
 --
+-- Индексы таблицы `authors`
+--
+ALTER TABLE `authors`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `author_book`
+--
+ALTER TABLE `author_book`
+  ADD PRIMARY KEY (`author_id`,`book_id`),
+  ADD KEY `FK_bfff0qy5yokmeel0q0e10msv7` (`book_id`);
+
+--
+-- Индексы таблицы `books`
+--
+ALTER TABLE `books`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `cats`
 --
 ALTER TABLE `cats`
@@ -351,6 +444,18 @@ ALTER TABLE `app_user`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT для таблицы `authors`
+--
+ALTER TABLE `authors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT для таблицы `books`
+--
+ALTER TABLE `books`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT для таблицы `cats`
 --
 ALTER TABLE `cats`
@@ -372,7 +477,7 @@ ALTER TABLE `emp99`
 -- AUTO_INCREMENT для таблицы `offices`
 --
 ALTER TABLE `offices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `person`
@@ -414,6 +519,13 @@ ALTER TABLE `app_user`
 ALTER TABLE `app_user_user_profile`
   ADD CONSTRAINT `FK_APP_USER` FOREIGN KEY (`user_id`) REFERENCES `app_user` (`id`),
   ADD CONSTRAINT `FK_USER_PROFILE` FOREIGN KEY (`user_profile_id`) REFERENCES `user_profile` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `author_book`
+--
+ALTER TABLE `author_book`
+  ADD CONSTRAINT `FK_3756au12qe5s0ee22r4tbfj54` FOREIGN KEY (`author_id`) REFERENCES `authors` (`id`),
+  ADD CONSTRAINT `FK_bfff0qy5yokmeel0q0e10msv7` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `users`
