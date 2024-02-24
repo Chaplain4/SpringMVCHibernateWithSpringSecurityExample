@@ -4,10 +4,13 @@ import com.websystique.springmvc.dao.AuthorDAO;
 import com.websystique.springmvc.model.Author;
 import com.websystique.springmvc.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
-
+@Transactional
+@Service("authorService")
 public class AuthorServiceImpl implements AuthorService{
     @Autowired
     private AuthorDAO dao;
@@ -29,6 +32,13 @@ public class AuthorServiceImpl implements AuthorService{
             entity.setId(author.getId());
             entity.setName(author.getName());
             entity.setLastName(author.getLastName());
+        }
+    }
+
+    @Override
+    public void updateAuthorBooks(Author author) {
+        Author entity = dao.findById(author.getId());
+        if(entity!=null){
             entity.setBooks(author.getBooks());
         }
     }
@@ -43,8 +53,4 @@ public class AuthorServiceImpl implements AuthorService{
         return dao.findAllAuthors();
     }
 
-    @Override
-    public List<Book> findAllBooksByAuthor(int authorId) {
-        return findAllBooksByAuthor(authorId);
-    }
 }

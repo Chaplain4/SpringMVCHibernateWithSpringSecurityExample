@@ -1,15 +1,18 @@
 package com.websystique.springmvc.service;
 
-import com.websystique.springmvc.dao.AuthorDAO;
+
 import com.websystique.springmvc.dao.BookDAO;
-import com.websystique.springmvc.dao.BookDAOImpl;
 import com.websystique.springmvc.model.Author;
 import com.websystique.springmvc.model.Book;
-import com.websystique.springmvc.model.Office;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
+@Service("bookService")
 public class BookServiceImpl implements BookService {
 
     @Autowired
@@ -41,10 +44,6 @@ public class BookServiceImpl implements BookService {
         dao.deleteById(id);
     }
 
-    @Override
-    public List<Author> findAllAuthorsByBook(int bookId) {
-        return findAllAuthorsByBook(bookId);
-    }
 
     @Override
     public List<Book> findAllBooks() {

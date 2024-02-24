@@ -16,8 +16,8 @@ import java.util.Set;
 @Repository("bookDao")
 public class BookDAOImpl extends AbstractDao<Integer, Book> implements BookDAO {
 
-    @Autowired
-    AuthorDAOImpl dao;
+//    @Autowired
+//    AuthorDAOImpl dao;
 
     @Override
     public Book findById(int id) {
@@ -38,18 +38,6 @@ public class BookDAOImpl extends AbstractDao<Integer, Book> implements BookDAO {
         delete(book);
     }
 
-    @Override
-    public List<Author> findAllAuthorsByBook(int bookId) {
-        List<Author> authors = dao.findAllAuthors();
-        List<Author> result = new ArrayList<>();
-        Book book = findById(bookId);
-        authors.forEach(author -> {
-            if (author.getBooks().contains(book)) {
-                result.add(author);
-            }
-        });
-        return result;
-    }
 
     @Override
     public List<Book> findAllBooks() {

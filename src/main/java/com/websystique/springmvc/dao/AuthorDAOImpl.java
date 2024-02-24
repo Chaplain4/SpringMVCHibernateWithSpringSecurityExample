@@ -16,8 +16,6 @@ import java.util.List;
 public class AuthorDAOImpl extends AbstractDao<Integer, Author> implements AuthorDAO {
     static final Logger logger = LoggerFactory.getLogger(AuthorDAOImpl.class);
 
-    @Autowired
-    BookDAOImpl dao;
 
     @Override
     public Author findById(int id) {
@@ -46,9 +44,4 @@ public class AuthorDAOImpl extends AbstractDao<Integer, Author> implements Autho
         return authors;
     }
 
-    @Override
-    public List<Book> findAllBooksByAuthor(int authorId) {
-        Author author = findById(authorId);
-        return (List<Book>) author.getBooks();
-    }
 }

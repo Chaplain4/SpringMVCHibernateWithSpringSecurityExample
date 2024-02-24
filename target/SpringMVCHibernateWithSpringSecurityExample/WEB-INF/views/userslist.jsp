@@ -61,10 +61,13 @@
 		 	<div class="well">
 		 		<a href="<c:url value='/newuser' />">Add New User</a>
 		 	</div>
-			<div class="well">
-				<a href="<c:url value='/offices/list' />">View offices</a>
-			</div>
 	 	</sec:authorize>
+		<div class="well">
+			<a href="<c:url value='/offices/list' />">View offices</a>
+		</div>
+		<div class="well">
+			<a href="<c:url value='/authorsBooks/list' />">View authors and books</a>
+		</div>
    	</div>
 </body>
 </html>

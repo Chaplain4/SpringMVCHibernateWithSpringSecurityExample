@@ -16,5 +16,5 @@ public interface AuthorService {
 
     List<Author> findAllAuthors();
 
-    List<Book> findAllBooksByAuthor(int authorId);
+    public void updateAuthorBooks(Author author);
 }

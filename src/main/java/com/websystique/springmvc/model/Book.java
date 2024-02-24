@@ -9,11 +9,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import java.util.Set;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "books")
-@Data
+@ToString
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

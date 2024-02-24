@@ -12,7 +12,5 @@ public interface BookDAO {
 
     void deleteById(int id);
 
-    List<Author> findAllAuthorsByBook(int bookId);
-
     List<Book> findAllBooks();
 }

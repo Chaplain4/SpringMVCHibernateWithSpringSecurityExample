@@ -63,6 +63,12 @@
             <a href="<c:url value='newoffice' />">Add New Office</a>
         </div>
     </sec:authorize>
+    <div class="well">
+        <a href="<c:url value='/list' />">View users</a>
+    </div>
+    <div class="well">
+        <a href="<c:url value='/authorsBooks/list' />">View authors and books</a>
+    </div>
 </div>
 </body>
 </html>
