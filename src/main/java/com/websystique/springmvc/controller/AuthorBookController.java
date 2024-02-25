@@ -2,8 +2,6 @@ package com.websystique.springmvc.controller;
 
 import com.websystique.springmvc.model.Author;
 import com.websystique.springmvc.model.Book;
-import com.websystique.springmvc.model.Office;
-import com.websystique.springmvc.model.User;
 import com.websystique.springmvc.service.AuthorService;
 import com.websystique.springmvc.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +31,7 @@ public class AuthorBookController {
 
 
     /**
-     * This method will list all existing offices.
+     * This method will list all existing authors and books.
      */
     @RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
     public String listAuthors(ModelMap model) {
@@ -241,5 +239,52 @@ public class AuthorBookController {
         model.addAttribute("success", "Author " + author.getName() + " " + author.getLastName() + " updated successfully");
         model.addAttribute("loggedinuser", getPrincipal());
         return "registrationsuccess";
+    }
+
+
+//    @RequestMapping(value = {"searchform"}, method = RequestMethod.GET)
+//    public String search(ModelMap model) {
+////        Author author = new Author();
+////        model.addAttribute("author", author);
+////        model.addAttribute("edit", false);
+//        model.addAttribute("loggedinuser", getPrincipal());
+//        return "searchform";
+//    }
+
+
+    @RequestMapping(value = {"list"}, method = RequestMethod.POST)
+    public String findBooks(ModelMap model, @RequestParam String key, @RequestParam String searchPattern) {
+        if (searchPattern.equals("author")) {
+        List <Author> authors = authorService.findAllAuthors();
+        List <Author> result = new ArrayList<>();
+        Set <Book> books = new HashSet<>();
+        authors.forEach(author -> {
+            if (author.getName().startsWith(key) || author.getLastName().startsWith(key)) {
+                result.add(author);
+                books.addAll(author.getBooks());
+            }
+        });
+        model.addAttribute("books", books);
+        model.addAttribute("authors", result);
+        } else {
+            List <Book> books = bookService.findAllBooks();
+            List <Book> bookResult = new ArrayList<>();
+            List <Author> authors = authorService.findAllAuthors();
+            List <Author> authorResult = new ArrayList<>();
+            books.forEach(book -> {
+                if (book.getName().startsWith(key) || book.getCategory().startsWith(key)) {
+                    bookResult.add(book);
+                    authors.forEach(author -> {
+                        if (author.getBooks().contains(book)) {
+                            authorResult.add(author);
+                        }
+                    });
+                }
+            });
+            model.addAttribute("books", bookResult);
+            model.addAttribute("authors", authorResult);
+        }
+        model.addAttribute("loggedinuser", getPrincipal());
+        return "searchresult";
     }
 }
